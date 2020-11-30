@@ -85,6 +85,12 @@ $GLOBALS['_wp_die_disabled'] = false;
 // Allow tests to override wp_die
 tests_add_filter( 'wp_die_handler', '_wp_die_handler_filter' );
 
+$GLOBALS['wp_tests_options'] = array(
+	'active_plugins' => array(
+		'cp-cp-rest-api/plugin.php'
+	)
+);
+
 // Preset ClassicPress options defined in bootstrap file.
 // Used to activate themes, plugins, as well as  other settings.
 if(isset($GLOBALS['wp_tests_options'])) {

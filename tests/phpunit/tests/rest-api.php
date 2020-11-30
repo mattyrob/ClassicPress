@@ -7,7 +7,7 @@
  */
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';
-require_once ABSPATH . WPINC . '/rest-api.php';
+require_once WP_CONTENT_DIR . '/plugins/cp-cp-rest-api/rest-api.php';
 
 /**
  * @group restapi

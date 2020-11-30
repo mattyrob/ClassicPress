@@ -229,17 +229,6 @@ add_action( 'transition_comment_status', '_clear_modified_cache_on_transition_co
 
 add_filter( 'http_request_host_is_external',    'allowed_http_request_hosts', 10, 2 );
 
-// REST API filters.
-add_action( 'xmlrpc_rsd_apis',            'rest_output_rsd' );
-add_action( 'wp_head',                    'rest_output_link_wp_head', 10, 0 );
-add_action( 'template_redirect',          'rest_output_link_header', 11, 0 );
-add_action( 'auth_cookie_malformed',      'rest_cookie_collect_status' );
-add_action( 'auth_cookie_expired',        'rest_cookie_collect_status' );
-add_action( 'auth_cookie_bad_username',   'rest_cookie_collect_status' );
-add_action( 'auth_cookie_bad_hash',       'rest_cookie_collect_status' );
-add_action( 'auth_cookie_valid',          'rest_cookie_collect_status' );
-add_filter( 'rest_authentication_errors', 'rest_cookie_check_errors', 100 );
-
 // Actions
 add_action( 'wp_head',             '_wp_render_title_tag',            1     );
 add_action( 'wp_head',             'wp_enqueue_scripts',              1     );
@@ -403,13 +392,6 @@ add_action( 'comment_post', 'wp_new_comment_notify_postauthor' );
 add_action( 'after_password_reset', 'wp_password_change_notification' );
 add_action( 'register_new_user',      'wp_send_new_user_notifications' );
 add_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
-
-// REST API actions.
-add_action( 'init',          'rest_api_init' );
-add_action( 'rest_api_init', 'rest_api_default_filters',   10, 1 );
-add_action( 'rest_api_init', 'register_initial_settings',  10 );
-add_action( 'rest_api_init', 'create_initial_rest_routes', 99 );
-add_action( 'parse_request', 'rest_api_loaded' );
 
 /**
  * Filters formerly mixed into wp-includes
