@@ -87,7 +87,8 @@ tests_add_filter( 'wp_die_handler', '_wp_die_handler_filter' );
 
 $GLOBALS['wp_tests_options'] = array(
 	'active_plugins' => array(
-		'cp-cp-rest-api/plugin.php'
+		'cp-cp-rest-api/plugin.php',
+		'cp-cp-embed-api/plugin.php'
 	)
 );
 

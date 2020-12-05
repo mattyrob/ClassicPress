@@ -195,21 +195,6 @@ function create_initial_post_types() {
 		),
 	) );
 
-	register_post_type( 'oembed_cache', array(
-		'labels' => array(
-			'name'          => __( 'oEmbed Responses' ),
-			'singular_name' => __( 'oEmbed Response' ),
-		),
-		'public'           => false,
-		'hierarchical'     => false,
-		'rewrite'          => false,
-		'query_var'        => false,
-		'delete_with_user' => false,
-		'can_export'       => false,
-		'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-		'supports'         => array(),
-	) );
-
 	register_post_type( 'user_request', array(
 		'labels'           => array(
 			'name'          => __( 'User Requests' ),

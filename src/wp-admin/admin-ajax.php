@@ -44,12 +44,12 @@ nocache_headers();
 do_action( 'admin_init' );
 
 $core_actions_get = array(
-	'fetch-list', 'ajax-tag-search', 'wp-compression-test', 'imgedit-preview', 'oembed-cache',
+	'fetch-list', 'ajax-tag-search', 'wp-compression-test', 'imgedit-preview',
 	'autocomplete-user', 'dashboard-widgets', 'logged-in',
 );
 
 $core_actions_post = array(
-	'oembed-cache', 'image-editor', 'delete-comment', 'delete-tag', 'delete-link',
+	'image-editor', 'delete-comment', 'delete-tag', 'delete-link',
 	'delete-meta', 'delete-post', 'trash-post', 'untrash-post', 'delete-page', 'dim-comment',
 	'add-link-category', 'add-tag', 'get-tagcloud', 'get-comments', 'replyto-comment',
 	'edit-comment', 'add-menu-item', 'add-meta', 'add-user', 'closed-postboxes',
