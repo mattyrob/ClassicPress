@@ -344,6 +344,8 @@ function wp_oembed_add_discovery_links() {
  * @since WP-4.4.0
  */
 function wp_oembed_add_host_js() {
+	global $core_plugin_embed_api;
+	$core_plugin_embed_api->register_embed_scripts();
 	wp_enqueue_script( 'wp-embed' );
 }
 

@@ -59,8 +59,9 @@ class Core_Plugin_Embed_API {
 		if ( ! empty( $_POST['action'] ) && in_array( $_POST['action'], $core_ajax_actions ) )
 			add_action( 'wp_ajax_' . $_POST['action'], 'wp_ajax_' . str_replace( '-', '_', $_POST['action'] ), 1 );
 
-		add_action( 'init', array( $this, 'register_embed_styles' ) );
-		add_action( 'init', array( $this, 'register_embed_scripts' ) );
+		add_action( 'wp_enqueue_styles', array( $this, 'register_embed_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_embed_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_embed_scripts' ) );
 		add_action( 'wp_enqueue_editor', array( $this, 'enqueue_embed_script' ) );
 
 		register_post_type( 'oembed_cache', array(
@@ -117,4 +118,5 @@ class Core_Plugin_Embed_API {
 	}
 }
 
+global $core_plugin_embed_api;
 $core_plugin_embed_api = new Core_Plugin_Embed_API();
