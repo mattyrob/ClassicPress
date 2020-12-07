@@ -29,7 +29,7 @@ class Test_WP_Customize_Custom_CSS_Setting extends WP_UnitTestCase {
 	 */
 	function setUp() {
 		parent::setUp();
-		require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+		require_once CUSTOMIZEPATH . 'class-wp-customize-manager.php';
 
 		$user_id = self::factory()->user->create( array(
 			'role' => 'administrator',

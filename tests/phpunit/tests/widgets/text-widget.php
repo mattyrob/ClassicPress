@@ -87,7 +87,7 @@ class Test_WP_Widget_Text extends WP_UnitTestCase {
 				)
 			)
 		);
-		require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+		require_once CUSTOMIZEPATH . 'class-wp-customize-manager.php';
 		$wp_customize = new WP_Customize_Manager(
 			array(
 				'changeset_uuid' => wp_generate_uuid4(),

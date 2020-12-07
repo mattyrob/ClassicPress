@@ -478,7 +478,7 @@ function map_meta_cap( $cap, $user_id ) {
 			$caps[] = 'do_not_allow';
 		break;
 	case 'customize' :
-		$caps[] = 'edit_theme_options';
+		$caps[] = 'do_not_allow';
 		break;
 	case 'delete_site':
 		if ( is_multisite() ) {

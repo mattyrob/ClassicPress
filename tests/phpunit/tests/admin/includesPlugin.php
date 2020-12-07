@@ -9,6 +9,11 @@ class Tests_Admin_includesPlugin extends WP_UnitTestCase {
 		remove_filter( 'pre_option_active_plugins', 'wp_tests_options' );
 	}
 
+	function tearDown() {
+		add_filter( 'pre_option_active_plugins', 'wp_tests_options' );
+		parent::tearDown();
+	}
+
 	function test_get_plugin_data() {
 		$data = get_plugin_data( DIR_TESTDATA . '/plugins/hello.php' );
 

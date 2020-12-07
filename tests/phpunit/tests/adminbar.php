@@ -628,7 +628,7 @@ class Tests_AdminBar extends WP_UnitTestCase {
 	 */
 	public function test_customize_link() {
 		global $wp_customize;
-		require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+		require_once CUSTOMIZEPATH . 'class-wp-customize-manager.php';
 		$uuid = wp_generate_uuid4();
 		$this->go_to( home_url( "/?customize_changeset_uuid=$uuid" ) );
 		wp_set_current_user( self::$admin_id );

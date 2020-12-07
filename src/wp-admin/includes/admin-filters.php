@@ -51,7 +51,7 @@ add_action( 'load-tools_page_export_personal_data', '_wp_privacy_requests_screen
 add_action( 'load-tools_page_remove_personal_data', '_wp_privacy_requests_screen_options' );
 
 // Prerendering.
-if ( ! is_customize_preview() ) {
+if ( function_exists( 'is_customize_preview' ) && ! is_customize_preview() ) {
 	add_filter( 'admin_print_styles', 'wp_resource_hints', 1 );
 }
 

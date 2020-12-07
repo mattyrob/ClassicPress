@@ -149,7 +149,7 @@ class Tests_General_Template extends WP_UnitTestCase {
 		global $wp_customize;
 		wp_set_current_user( $this->factory()->user->create( array( 'role' => 'administrator' ) ) );
 
-		require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+		require_once CUSTOMIZEPATH . 'class-wp-customize-manager.php';
 		$wp_customize = new WP_Customize_Manager();
 		$wp_customize->register_controls();
 		$wp_customize->start_previewing_theme();
@@ -166,7 +166,7 @@ class Tests_General_Template extends WP_UnitTestCase {
 		global $wp_customize;
 		wp_set_current_user( $this->factory()->user->create( array( 'role' => 'administrator' ) ) );
 
-		require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+		require_once CUSTOMIZEPATH . 'class-wp-customize-manager.php';
 		$wp_customize = new WP_Customize_Manager();
 		$wp_customize->register_controls();
 		$wp_customize->start_previewing_theme();

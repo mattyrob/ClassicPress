@@ -256,7 +256,7 @@ class Tests_Embed_Template extends WP_UnitTestCase {
 	}
 
 	function test_add_host_js() {
-		wp_oembed_add_host_js();
+		wp_oembed_add_host_js(); // function exists but script is not registered
 
 		$this->assertTrue( wp_script_is( 'wp-embed' ) );
 	}

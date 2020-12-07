@@ -397,11 +397,6 @@ add_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
 // Theme
 add_action( 'wp_loaded', '_custom_header_background_just_in_time' );
 add_action( 'wp_head', '_custom_logo_header_styles' );
-add_action( 'plugins_loaded', '_wp_customize_include' );
-add_action( 'transition_post_status', '_wp_customize_publish_changeset', 10, 3 );
-add_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings' );
-add_action( 'delete_attachment', '_delete_attachment_theme_mod' );
-add_action( 'transition_post_status', '_wp_keep_alive_customize_changeset_dependent_auto_drafts', 20, 3 );
 
 // Calendar widget cache
 add_action( 'save_post', 'delete_get_calendar_cache' );
