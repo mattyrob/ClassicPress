@@ -50,13 +50,11 @@ add_action( 'auth_cookie_valid', 'rest_cookie_collect_status' );
 add_filter( 'rest_authentication_errors', 'rest_cookie_check_errors', 100 );
 
 // Hook other areas of REST API using code from core
-add_action( 'wp_default_scripts', 'restapi_wpApiSettings' );
+add_action( 'admin_enqueue_scripts', 'restapi_wpApiSettings' );
 
-function restapi_wpApiSettings( &$scripts ) {
-	$suffix = SCRIPT_DEBUG ? '' : '.min';
-	$scripts->add( 'wp-api-request', "/wp-includes/js/api-request$suffix.js", array( 'jquery' ), false, 1 );
+function restapi_wpApiSettings() {
 	// `wpApiSettings` is also used by `wp-api`, which depends on this script.
-	$scripts->localize( 'wp-api-request', 'wpApiSettings', array(
+	wp_localize_script( 'wp-api-request', 'wpApiSettings', array(
 		'root'          => esc_url_raw( get_rest_url() ),
 		'nonce'         => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
 		'versionString' => 'wp/v2/',
