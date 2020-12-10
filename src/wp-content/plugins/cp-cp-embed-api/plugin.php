@@ -110,7 +110,7 @@ class Core_Plugin_Embed_API {
 
 	public function register_embed_scripts() {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
-		wp_register_script( 'wp-embed', '/' . trailingslashit( PLUGINDIR ) . dirname( plugin_basename( __FILE__ ) ) . "js/wp-embed$suffix.js" );
+		wp_register_script( 'wp-embed', '/' . trailingslashit( PLUGINDIR ) . dirname( plugin_basename( __FILE__ ) ) . "/js/wp-embed$suffix.js" );
 	}
 
 	public function enqueue_embed_script() {
