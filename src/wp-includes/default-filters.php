@@ -75,7 +75,6 @@ foreach ( array( 'user_url', 'link_url', 'link_image', 'link_rss', 'comment_url'
 
 // Slugs
 add_filter( 'pre_term_slug', 'sanitize_title' );
-add_filter( 'wp_insert_post_data', '_wp_customize_changeset_filter_insert_post_data', 10, 2 );
 
 // Keys
 foreach ( array( 'pre_post_type', 'pre_post_status', 'pre_post_comment_status', 'pre_post_ping_status' ) as $filter ) {
@@ -431,7 +430,6 @@ add_action( 'wp_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000 );
 add_action( 'admin_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000 );
 add_filter( 'wp_print_scripts', 'wp_just_in_time_script_localization' );
 add_filter( 'print_scripts_array', 'wp_prototype_before_jquery' );
-add_filter( 'customize_controls_print_styles', 'wp_resource_hints', 1 );
 
 add_action( 'wp_default_styles', 'wp_default_styles' );
 add_filter( 'style_loader_src', 'wp_style_loader_src', 10, 2 );
@@ -449,7 +447,6 @@ add_filter( 'the_content', 'do_shortcode', 11 ); // AFTER wpautop()
 
 // Media
 add_action( 'wp_playlist_scripts', 'wp_playlist_scripts' );
-add_action( 'customize_controls_enqueue_scripts', 'wp_plupload_default_settings' );
 
 // Nav menu
 add_filter( 'nav_menu_item_id', '_nav_menu_item_id_use_once', 10, 2 );

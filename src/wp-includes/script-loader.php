@@ -566,83 +566,6 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'hoverIntent', "/wp-includes/js/hoverIntent$suffix.js", array('jquery'), '1.8.1', 1 );
 
-	$scripts->add( 'customize-base',     "/wp-includes/js/customize-base$suffix.js",     array( 'jquery', 'json2', 'underscore' ), false, 1 );
-	$scripts->add( 'customize-loader',   "/wp-includes/js/customize-loader$suffix.js",   array( 'customize-base' ), false, 1 );
-	$scripts->add( 'customize-preview',  "/wp-includes/js/customize-preview$suffix.js",  array( 'wp-a11y', 'customize-base' ), false, 1 );
-	$scripts->add( 'customize-models',   "/wp-includes/js/customize-models.js", array( 'underscore', 'backbone' ), false, 1 );
-	$scripts->add( 'customize-views',    "/wp-includes/js/customize-views.js",  array( 'jquery', 'underscore', 'imgareaselect', 'customize-models', 'media-editor', 'media-views' ), false, 1 );
-	$scripts->add( 'customize-controls', "/wp-admin/js/customize-controls$suffix.js", array( 'customize-base', 'wp-a11y', 'wp-util', 'jquery-ui-core' ), false, 1 );
-	did_action( 'init' ) && $scripts->localize( 'customize-controls', '_wpCustomizeControlsL10n', array(
-		'activate'           => __( 'Activate &amp; Publish' ),
-		'save'               => __( 'Save &amp; Publish' ), // @todo Remove as not required.
-		'publish'            => __( 'Publish' ),
-		'published'          => __( 'Published' ),
-		'saveDraft'          => __( 'Save Draft' ),
-		'draftSaved'         => __( 'Draft Saved' ),
-		'updating'           => __( 'Updating' ),
-		'schedule'           => _x( 'Schedule', 'customizer changeset action/button label' ),
-		'scheduled'          => _x( 'Scheduled', 'customizer changeset status' ),
-		'invalid'            => __( 'Invalid' ),
-		'saveBeforeShare'    => __( 'Please save your changes in order to share the preview.' ),
-		'futureDateError'    => __( 'You must supply a future date to schedule.' ),
-		'saveAlert'          => __( 'The changes you made will be lost if you navigate away from this page.' ),
-		'saved'              => __( 'Saved' ),
-		'cancel'             => __( 'Cancel' ),
-		'close'              => __( 'Close' ),
-		'action'             => __( 'Action' ),
-		'discardChanges'     => __( 'Discard changes' ),
-		'cheatin'            => __( 'Something went wrong.' ),
-		'notAllowedHeading'  => __( 'You need a higher level of permission.' ),
-		'notAllowed'         => __( 'Sorry, you are not allowed to customize this site.' ),
-		'previewIframeTitle' => __( 'Site Preview' ),
-		'loginIframeTitle'   => __( 'Session expired' ),
-		'collapseSidebar'    => _x( 'Hide Controls', 'label for hide controls button without length constraints' ),
-		'expandSidebar'      => _x( 'Show Controls', 'label for hide controls button without length constraints' ),
-		'untitledBlogName'   => __( '(Untitled)' ),
-		'unknownRequestFail' => __( 'Looks like something&#8217;s gone wrong. Wait a couple seconds, and then try again.' ),
-		'themeDownloading'   => __( 'Downloading your new theme&hellip;' ),
-		'themePreviewWait'   => __( 'Setting up your live preview. This may take a bit.' ),
-		'revertingChanges'   => __( 'Reverting unpublished changes&hellip;' ),
-		'trashConfirm'       => __( 'Are you sure you&#8217;d like to discard your unpublished changes?' ),
-		/* translators: %s: Display name of the user who has taken over the changeset in customizer. */
-		'takenOverMessage'   => __( '%s has taken over and is currently customizing.' ),
-		/* translators: %s: URL to the Customizer to load the autosaved version */
-		'autosaveNotice'     => __( 'There is a more recent autosave of your changes than the one you are previewing. <a href="%s">Restore the autosave</a>' ),
-		'videoHeaderNotice'  => __( 'This theme doesn&#8217;t support video headers on this page. Navigate to the front page or another page that supports video headers.' ),
-		// Used for overriding the file types allowed in plupload.
-		'allowedFiles'       => __( 'Allowed Files' ),
-		'customCssError'     => array(
-			/* translators: %d: error count */
-			'singular' => _n( 'There is %d error which must be fixed before you can save.', 'There are %d errors which must be fixed before you can save.', 1 ),
-			/* translators: %d: error count */
-			'plural'   => _n( 'There is %d error which must be fixed before you can save.', 'There are %d errors which must be fixed before you can save.', 2 ), // @todo This is lacking, as some languages have a dedicated dual form. For proper handling of plurals in JS, see https://core.trac.wordpress.org/ticket/20491.
-		),
-		'pageOnFrontError' => __( 'Homepage and posts page must be different.' ),
-		'saveBlockedError' => array(
-			/* translators: %s: number of invalid settings */
-			'singular' => _n( 'Unable to save due to %s invalid setting.', 'Unable to save due to %s invalid settings.', 1 ),
-			/* translators: %s: number of invalid settings */
-			'plural'   => _n( 'Unable to save due to %s invalid setting.', 'Unable to save due to %s invalid settings.', 2 ), // @todo This is lacking, as some languages have a dedicated dual form. For proper handling of plurals in JS, see https://core.trac.wordpress.org/ticket/20491.
-		),
-		'scheduleDescription' => __( 'Schedule your customization changes to publish ("go live") at a future date.' ),
-		'themePreviewUnavailable' => __( 'Sorry, you can&#8217;t preview new themes when you have changes scheduled or saved as a draft. Please publish your changes, or wait until they publish to preview new themes.' ),
-		'themeInstallUnavailable' => sprintf(
-			/* translators: %s: URL to Add Themes admin screen */
-			__( 'You won&#8217;t be able to install new themes from here yet since your install requires SFTP credentials. For now, please <a href="%s">add themes in the admin</a>.' ),
-			esc_url( admin_url( 'theme-install.php' ) )
-		),
-		'publishSettings' => __( 'Publish Settings' ),
-		'invalidDate'     => __( 'Invalid date.' ),
-		'invalidValue'    => __( 'Invalid value.' ),
-	) );
-	$scripts->add( 'customize-selective-refresh', "/wp-includes/js/customize-selective-refresh$suffix.js", array( 'jquery', 'wp-util', 'customize-preview' ), false, 1 );
-
-	$scripts->add( 'customize-widgets', "/wp-admin/js/customize-widgets$suffix.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-droppable', 'wp-backbone', 'customize-controls' ), false, 1 );
-	$scripts->add( 'customize-preview-widgets', "/wp-includes/js/customize-preview-widgets$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), false, 1 );
-
-	$scripts->add( 'customize-nav-menus', "/wp-admin/js/customize-nav-menus$suffix.js", array( 'jquery', 'wp-backbone', 'customize-controls', 'accordion', 'nav-menu' ), false, 1 );
-	$scripts->add( 'customize-preview-nav-menus', "/wp-includes/js/customize-preview-nav-menus$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), false, 1 );
-
 	$scripts->add( 'wp-custom-header', "/wp-includes/js/wp-custom-header$suffix.js", array( 'wp-a11y' ), false, 1 );
 
 	$scripts->add( 'accordion', "/wp-admin/js/accordion$suffix.js", array( 'jquery' ), false, 1 );
@@ -1027,9 +950,6 @@ function wp_default_styles( &$styles ) {
 	$styles->add( 'login',               "/wp-admin/css/login$suffix.css", array( 'dashicons', 'buttons', 'forms', 'l10n' ) );
 	$styles->add( 'install',             "/wp-admin/css/install$suffix.css", array( 'buttons' ) );
 	$styles->add( 'wp-color-picker',     "/wp-admin/css/color-picker$suffix.css" );
-	$styles->add( 'customize-controls',  "/wp-admin/css/customize-controls$suffix.css", array( 'wp-admin', 'colors', 'ie', 'imgareaselect' ) );
-	$styles->add( 'customize-widgets',   "/wp-admin/css/customize-widgets$suffix.css", array( 'wp-admin', 'colors' ) );
-	$styles->add( 'customize-nav-menus', "/wp-admin/css/customize-nav-menus$suffix.css", array( 'wp-admin', 'colors' ) );
 
 	$styles->add( 'ie', "/wp-admin/css/ie$suffix.css" );
 	$styles->add_data( 'ie', 'conditional', 'lte IE 7' );
@@ -1044,7 +964,6 @@ function wp_default_styles( &$styles ) {
 	$styles->add( 'editor-buttons',       "/wp-includes/css/editor$suffix.css", array( 'dashicons' ) );
 	$styles->add( 'media-views',          "/wp-includes/css/media-views$suffix.css", array( 'buttons', 'dashicons', 'wp-mediaelement' ) );
 	$styles->add( 'wp-pointer',           "/wp-includes/css/wp-pointer$suffix.css", array( 'dashicons' ) );
-	$styles->add( 'customize-preview',    "/wp-includes/css/customize-preview$suffix.css", array( 'dashicons' ) );
 
 	// External libraries and friends
 	$styles->add( 'imgareaselect',       '/wp-includes/js/imgareaselect/imgareaselect.css', array(), '0.9.8' );
@@ -1065,8 +984,7 @@ function wp_default_styles( &$styles ) {
 	$rtl_styles = array(
 		// wp-admin
 		'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media', 'themes', 'about', 'nav-menus',
-		'widgets', 'site-icon', 'l10n', 'install', 'wp-color-picker', 'customize-controls', 'customize-widgets', 'customize-nav-menus', 'customize-preview',
-		'ie', 'login',
+		'widgets', 'site-icon', 'l10n', 'install', 'wp-color-picker', 'ie', 'login',
 		// wp-includes
 		'buttons', 'admin-bar', 'wp-auth-check', 'editor-buttons', 'media-views', 'wp-pointer',
 		'wp-jquery-ui-dialog',

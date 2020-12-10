@@ -2648,3 +2648,9 @@ function wp_text_diff( $left_string, $right_string, $args = null ) {
 	return $r;
 }
 endif;
+
+if ( !function_exists( 'is_customize_preview' ) ) :
+function is_customize_preview() {
+	return false;
+}
+endif;

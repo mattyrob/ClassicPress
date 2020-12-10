@@ -2844,13 +2844,13 @@ function wp_sensitive_page_meta() {
  * @link https://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#rel-icon HTML5 specification link icon.
  */
 function wp_site_icon() {
-	if ( ! has_site_icon() && function_exists( 'is_customize_preview' ) && ! is_customize_preview() ) {
+	if ( ! has_site_icon() && ! is_customize_preview() ) {
 		return;
 	}
 
 	$meta_tags = array();
 	$icon_32 = get_site_icon_url( 32 );
-	if ( empty( $icon_32 ) && function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
+	if ( empty( $icon_32 ) && is_customize_preview() ) {
 		$icon_32 = '/favicon.ico'; // Serve default favicon URL in customizer so element can be updated for preview.
 	}
 	if ( $icon_32 ) {

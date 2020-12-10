@@ -56,6 +56,8 @@ class Test_WP_Customize_Selective_Refresh extends WP_UnitTestCase {
 	 * @see WP_Customize_Selective_Refresh::register_scripts()
 	 */
 	function test_register_scripts() {
+		global $core_plugin_customizer;
+		$core_plugin_customizer->register_js_scripts();
 		$scripts = new WP_Scripts();
 		$handles = array(
 			'customize-selective-refresh',
