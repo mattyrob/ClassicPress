@@ -25,6 +25,7 @@ class Core_Plugin_Customizer {
 		add_filter( 'map_meta_cap', array( $this, 'add_customize_capability' ), 10, 4 );
 
 		add_action( 'init', array( $this, 'register_js_scripts' ) );
+		add_action( 'init', array( $this, 'localize_js_scripts' ) );
 		add_action( 'init', array( $this, 'register_css' ) );
 
 		add_filter( 'customize_controls_print_styles', 'wp_resource_hints', 1 );
@@ -89,12 +90,23 @@ class Core_Plugin_Customizer {
 
 	function register_js_scripts() {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
-		wp_register_script( 'customize-base', plugin_dir_url( __FILE__ ) . "js/customize-base$suffix.js", array( 'jquery', 'json2', 'underscore' ), false, 1 );
-		wp_register_script( 'customize-loader', plugin_dir_url( __FILE__ ) . "js/customize-loader$suffix.js", array( 'customize-base' ), false, 1 );
-		wp_register_script( 'customize-preview', plugin_dir_url( __FILE__ ) . "js/customize-preview$suffix.js", array( 'wp-a11y', 'customize-base' ), false, 1 );
-		wp_register_script( 'customize-models', plugin_dir_url( __FILE__ ) . "js/customize-models.js", array( 'underscore', 'backbone' ), false, 1 );
-		wp_register_script( 'customize-views', plugin_dir_url( __FILE__ ) . "js/customize-views.js",  array( 'jquery', 'underscore', 'imgareaselect', 'customize-models', 'media-editor', 'media-views' ), false, 1 );
-		wp_register_script( 'customize-controls', plugin_dir_url( __FILE__ ) . "js/customize-controls$suffix.js", array( 'customize-base', 'wp-a11y', 'wp-util', 'jquery-ui-core' ), false, 1 );
+		wp_register_script( 'customize-base', plugin_dir_url( __FILE__ ) . "js/customize-base$suffix.js", array( 'jquery', 'json2', 'underscore' ), null, 1 );
+		wp_register_script( 'customize-loader', plugin_dir_url( __FILE__ ) . "js/customize-loader$suffix.js", array( 'customize-base' ), null, 1 );
+		wp_register_script( 'customize-preview', plugin_dir_url( __FILE__ ) . "js/customize-preview$suffix.js", array( 'wp-a11y', 'customize-base' ), null, 1 );
+		wp_register_script( 'customize-models', plugin_dir_url( __FILE__ ) . "js/customize-models.js", array( 'underscore', 'backbone' ), null, 1 );
+		wp_register_script( 'customize-views', plugin_dir_url( __FILE__ ) . "js/customize-views.js",  array( 'jquery', 'underscore', 'imgareaselect', 'customize-models', 'media-editor', 'media-views' ), null, 1 );
+		wp_register_script( 'customize-controls', plugin_dir_url( __FILE__ ) . "js/customize-controls$suffix.js", array( 'customize-base', 'wp-a11y', 'wp-util', 'jquery-ui-core' ), null, 1 );
+
+		wp_register_script( 'customize-selective-refresh', plugin_dir_url( __FILE__ ) . "js/customize-selective-refresh$suffix.js", array( 'jquery', 'wp-util', 'customize-preview' ), null, 1 );
+
+		wp_register_script( 'customize-widgets', plugin_dir_url( __FILE__ ) . "js/customize-widgets$suffix.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-droppable', 'wp-backbone', 'customize-controls' ), null, 1 );
+
+		wp_register_script( 'customize-nav-menus', plugin_dir_url( __FILE__ ) . "js/customize-nav-menus$suffix.js", array( 'jquery', 'wp-backbone', 'customize-controls', 'accordion', 'nav-menu' ), null, 1 );
+		wp_register_script( 'customize-preview-nav-menus', plugin_dir_url( __FILE__ ) . "js/customize-preview-nav-menus$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), null, 1 );
+		wp_register_script( 'customize-preview-widgets', plugin_dir_url( __FILE__ ) . "js/customize-preview-widgets$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), null, 1 );
+	}
+
+	function localize_js_scripts() {
 		wp_localize_script( 'customize-controls', '_wpCustomizeControlsL10n', array(
 			'activate'           => __( 'Activate &amp; Publish' ),
 			'save'               => __( 'Save &amp; Publish' ), // @todo Remove as not required.
@@ -158,14 +170,6 @@ class Core_Plugin_Customizer {
 			'invalidDate'     => __( 'Invalid date.' ),
 			'invalidValue'    => __( 'Invalid value.' ),
 		) );
-
-		wp_register_script( 'customize-selective-refresh', plugin_dir_url( __FILE__ ) . "js/customize-selective-refresh$suffix.js", array( 'jquery', 'wp-util', 'customize-preview' ), false, 1 );
-
-		wp_register_script( 'customize-widgets', plugin_dir_url( __FILE__ ) . "js/customize-widgets$suffix.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-droppable', 'wp-backbone', 'customize-controls' ), false, 1 );
-
-		wp_register_script( 'customize-nav-menus', plugin_dir_url( __FILE__ ) . "js/customize-nav-menus$suffix.js", array( 'jquery', 'wp-backbone', 'customize-controls', 'accordion', 'nav-menu' ), false, 1 );
-		wp_register_script( 'customize-preview-nav-menus', plugin_dir_url( __FILE__ ) . "js/customize-preview-nav-menus$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), false, 1 );
-		wp_register_script( 'customize-preview-widgets', plugin_dir_url( __FILE__ ) . "js/customize-preview-widgets$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), false, 1 );
 	}
 
 	function register_css() {

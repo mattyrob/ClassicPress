@@ -800,11 +800,18 @@ class Tests_Dependencies_Scripts extends WP_UnitTestCase {
 		$wp_scripts->base_url  = '';
 		$wp_scripts->do_concat = true;
 
+		global $core_plugin_customizer;
+		$core_plugin_customizer->register_js_scripts();
+
 		$expected_tail = "<![endif]-->\n";
+		$expected_tail .= "<script type='text/javascript' src='http://example.org/wp-content/plugins/cp-cp-customizer-api/js/customize-base.min.js'></script>\n";
+		$expected_tail .= "<script type='text/javascript' src='http://example.org/wp-content/plugins/cp-cp-customizer-api/js/customize-controls.min.js'></script>\n";
 		$expected_tail .= "<script type='text/javascript' src='/customize-dependency.js'></script>\n";
 		$expected_tail .= "<script type='text/javascript'>\n";
 		$expected_tail .= "tryCustomizeDependency()\n";
 		$expected_tail .= "</script>\n";
+
+		wp_dequeue_script( 'customize-base' );
 
 		$handle = 'customize-dependency';
 		wp_enqueue_script( $handle, '/customize-dependency.js', array( 'customize-controls' ), null );

@@ -58,14 +58,14 @@ class Test_WP_Customize_Selective_Refresh extends WP_UnitTestCase {
 	function test_register_scripts() {
 		global $core_plugin_customizer;
 		$core_plugin_customizer->register_js_scripts();
-		$scripts = new WP_Scripts();
+
 		$handles = array(
 			'customize-selective-refresh',
 			'customize-preview-nav-menus',
 			'customize-preview-widgets',
 		);
 		foreach ( $handles as $handle ) {
-			$this->assertArrayHasKey( $handle, $scripts->registered );
+			$this->assertArrayHasKey( $handle, $GLOBALS['wp_scripts']->registered );
 		}
 	}
 
@@ -126,10 +126,11 @@ class Test_WP_Customize_Selective_Refresh extends WP_UnitTestCase {
 	 * @see WP_Customize_Selective_Refresh::enqueue_preview_scripts()
 	 */
 	function test_enqueue_preview_scripts() {
-		$scripts = wp_scripts();
-		$this->assertNotContains( 'customize-selective-refresh', $scripts->queue );
+		global $core_plugin_customizer;
+		$core_plugin_customizer->register_js_scripts();
+		$this->assertNotContains( 'customize-selective-refresh', $GLOBALS['wp_scripts']->queue );
 		$this->selective_refresh->enqueue_preview_scripts();
-		$this->assertContains( 'customize-selective-refresh', $scripts->queue );
+		$this->assertContains( 'customize-selective-refresh', $GLOBALS['wp_scripts']->queue );
 		$this->assertEquals( 1000, has_action( 'wp_footer', array( $this->selective_refresh, 'export_preview_data' ) ) );
 	}
 

@@ -563,6 +563,8 @@ class Tests_WP_Customize_Widgets extends WP_UnitTestCase {
 	 * @see WP_Customize_Widgets::customize_preview_enqueue()
 	 */
 	function test_customize_preview_enqueue() {
+		global $core_plugin_customizer;
+		$core_plugin_customizer->register_js_scripts();
 		$this->manager->widgets->customize_preview_enqueue();
 		$this->assertTrue( wp_script_is( 'customize-preview-widgets', 'enqueued' ) );
 		$this->assertTrue( wp_style_is( 'customize-preview', 'enqueued' ) );
