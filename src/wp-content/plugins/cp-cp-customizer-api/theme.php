@@ -207,12 +207,13 @@ function wp_customize_support_script() {
  *
  * @return bool True if the site is being previewed in the Customizer, false otherwise.
  */
+if ( ! function_exists( 'is_customize_preview' ) ) :
 function is_customize_preview() {
 	global $wp_customize;
 
 	return ( $wp_customize instanceof WP_Customize_Manager ) && $wp_customize->is_preview();
 }
-
+endif;
 /**
  * Make sure that auto-draft posts get their post_date bumped or status changed to draft to prevent premature garbage-collection.
  *
