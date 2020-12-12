@@ -449,19 +449,20 @@ function maybe_serialize( $data ) {
 }
 
 /**
- * Retrieve post title from XMLRPC XML.
+ * Retrieve post title from email.
  *
- * If the title element is not part of the XML, then the default post title from
+ * If the title element is not defined, then the default post title from
  * the $post_default_title will be used instead.
  *
  * @since WP-0.71
+ * @since CP-2.0 Renamed and XMLRPC XML function is abstracted and a wrapper for this function
  *
- * @global string $post_default_title Default XML-RPC post title.
+ * @global string $post_default_title Default post title.
  *
- * @param string $content XMLRPC XML Request content
+ * @param string $content Post by email content
  * @return string Post title
  */
-function xmlrpc_getposttitle( $content ) {
+function email_getposttitle( $content ) {
 	global $post_default_title;
 	if ( preg_match( '/<title>(.+?)<\/title>/is', $content, $matchtitle ) ) {
 		$post_title = $matchtitle[1];
@@ -469,46 +470,6 @@ function xmlrpc_getposttitle( $content ) {
 		$post_title = $post_default_title;
 	}
 	return $post_title;
-}
-
-/**
- * Retrieve the post category or categories from XMLRPC XML.
- *
- * If the category element is not found, then the default post category will be
- * used. The return type then would be what $post_default_category. If the
- * category is found, then it will always be an array.
- *
- * @since WP-0.71
- *
- * @global string $post_default_category Default XML-RPC post category.
- *
- * @param string $content XMLRPC XML Request content
- * @return string|array List of categories or category name.
- */
-function xmlrpc_getpostcategory( $content ) {
-	global $post_default_category;
-	if ( preg_match( '/<category>(.+?)<\/category>/is', $content, $matchcat ) ) {
-		$post_category = trim( $matchcat[1], ',' );
-		$post_category = explode( ',', $post_category );
-	} else {
-		$post_category = $post_default_category;
-	}
-	return $post_category;
-}
-
-/**
- * XMLRPC XML content without title and category elements.
- *
- * @since WP-0.71
- *
- * @param string $content XML-RPC XML Request content.
- * @return string XMLRPC XML Request content without title and category elements.
- */
-function xmlrpc_removepostdata( $content ) {
-	$content = preg_replace( '/<title>(.+?)<\/title>/si', '', $content );
-	$content = preg_replace( '/<category>(.+?)<\/category>/si', '', $content );
-	$content = trim( $content );
-	return $content;
 }
 
 /**
@@ -2403,7 +2364,7 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
 		} else {
 			if ( $type !== $real_mime ) {
 				/*
-				 * Everything else including image/* and application/*: 
+				 * Everything else including image/* and application/*:
 				 * If the real content type doesn't match the file extension, assume it's dangerous.
 				 */
 				$type = $ext = false;
@@ -2412,7 +2373,7 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
 		}
 	}
 
-	// The mime type must be allowed 
+	// The mime type must be allowed
 	if ( $type ) {
 		$allowed = get_allowed_mime_types();
 

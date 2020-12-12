@@ -2,7 +2,7 @@
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';
 require_once ABSPATH . WPINC . '/class-IXR.php';
-require_once ABSPATH . WPINC . '/class-wp-xmlrpc-server.php';
+require_once XMLRPCPATH . '/class-wp-xmlrpc-server.php';
 
 /**
  * @group xmlrpc

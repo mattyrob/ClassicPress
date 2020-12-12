@@ -203,7 +203,7 @@ for ( $i = 1; $i <= $count; $i++ ) {
 	 */
 	$post_content = apply_filters( 'phone_content', $content );
 
-	$post_title = xmlrpc_getposttitle($content);
+	$post_title = email_getposttitle($content);
 
 	if ($post_title == '') $post_title = $subject;
 

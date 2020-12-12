@@ -2778,24 +2778,6 @@ function pingback_ping_source_uri( $source_uri ) {
 	return (string) wp_http_validate_url( $source_uri );
 }
 
-/**
- * Default filter attached to xmlrpc_pingback_error.
- *
- * Returns a generic pingback error code unless the error code is 48,
- * which reports that the pingback is already registered.
- *
- * @since WP-3.5.1
- * @link https://www.hixie.ch/specs/pingback/pingback#TOC3
- *
- * @param IXR_Error $ixr_error
- * @return IXR_Error
- */
-function xmlrpc_pingback_error( $ixr_error ) {
-	if ( $ixr_error->code === 48 )
-		return $ixr_error;
-	return new IXR_Error( 0, '' );
-}
-
 //
 // Cache
 //
@@ -3061,7 +3043,7 @@ function wp_handle_comment_submission( $comment_data ) {
 		 * @param int $comment_post_ID Post ID.
 		 */
 		do_action( 'comment_on_draft', $comment_post_ID );
-		
+
 		if ( current_user_can( 'read_post', $comment_post_ID ) ) {
 			return new WP_Error( 'comment_on_draft', __( 'Sorry, comments are not allowed for this item.' ), 403 );
 		} else {

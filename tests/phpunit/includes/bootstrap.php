@@ -89,7 +89,8 @@ $GLOBALS['wp_tests_options'] = array(
 	'active_plugins' => array(
 		'cp-cp-rest-api/plugin.php',
 		'cp-cp-embed-api/plugin.php',
-		'cp-cp-customizer-api/plugin.php'
+		'cp-cp-customizer-api/plugin.php',
+		'cp-cp-xmlrpc/plugin.php'
 	)
 );
 
