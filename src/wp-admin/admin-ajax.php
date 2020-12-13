@@ -60,7 +60,7 @@ $core_actions_post = array(
 	'wp-remove-post-lock', 'dismiss-wp-pointer', 'upload-attachment', 'get-attachment',
 	'query-attachments', 'save-attachment', 'save-attachment-compat', 'send-link-to-editor',
 	'send-attachment-to-editor', 'save-attachment-order', 'heartbeat', 'get-revision-diffs',
-	'save-user-color-scheme', 'update-widget', 'query-themes', 'parse-embed', 'set-attachment-thumbnail',
+	'save-user-color-scheme', 'update-widget', 'query-themes', 'set-attachment-thumbnail',
 	'parse-media-shortcode', 'destroy-sessions', 'install-plugin', 'update-plugin', 'crop-image',
 	'generate-password', 'save-wporg-username', 'delete-plugin', 'search-plugins',
 	'search-install-plugins', 'activate-plugin', 'update-theme', 'delete-theme', 'install-theme',

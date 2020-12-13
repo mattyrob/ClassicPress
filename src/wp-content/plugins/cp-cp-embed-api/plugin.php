@@ -56,6 +56,7 @@ class Core_Plugin_Embed_API {
 		if ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], $core_ajax_actions ) )
 			add_action( 'wp_ajax_' . $_GET['action'], 'wp_ajax_' . str_replace( '-', '_', $_GET['action'] ), 1 );
 
+		$core_ajax_actions[] = 'parse-embed';
 		if ( ! empty( $_POST['action'] ) && in_array( $_POST['action'], $core_ajax_actions ) )
 			add_action( 'wp_ajax_' . $_POST['action'], 'wp_ajax_' . str_replace( '-', '_', $_POST['action'] ), 1 );
 
