@@ -584,18 +584,6 @@ module.exports = function(grunt) {
 					'!wp-includes/js/wp-embed.js' // We have extra options for this, see terser:embed
 				]
 			},
-			embed: {
-				options: {
-					compress: {
-						conditionals: false
-					}
-				},
-				expand: true,
-				cwd: SOURCE_DIR,
-				dest: BUILD_DIR,
-				ext: '.min.js',
-				src: ['wp-includes/js/wp-embed.js']
-			},
 			media: {
 				expand: true,
 				cwd: SOURCE_DIR,
@@ -700,10 +688,6 @@ module.exports = function(grunt) {
 		includes: {
 			emoji: {
 				src: `${BUILD_DIR}wp-includes/formatting.php`,
-				dest: '.'
-			},
-			embed: {
-				src: `${BUILD_DIR}wp-includes/embed.php`,
 				dest: '.'
 			}
 		},
