@@ -90,7 +90,8 @@ $GLOBALS['wp_tests_options'] = array(
 		'cp-cp-rest-api/plugin.php',
 		'cp-cp-embed-api/plugin.php',
 		'cp-cp-customizer-api/plugin.php',
-		'cp-cp-xmlrpc/plugin.php'
+		'cp-cp-xmlrpc/plugin.php',
+		'cp-cp-emoji/plugin.php'
 	)
 );
 

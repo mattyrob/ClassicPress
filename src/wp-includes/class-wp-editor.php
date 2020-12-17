@@ -400,7 +400,6 @@ final class _WP_Editors {
 						'wordpress',
 						'wpautoresize',
 						'wpeditimage',
-						'wpemoji',
 						'wpgallery',
 						'wplink',
 						'wpdialogs',
@@ -743,7 +742,7 @@ final class _WP_Editors {
 	/**
 	 *
 	 * @static
-	 * 
+	 *
 	 * @param bool $default_scripts Optional. Whether default scripts should be enqueued. Default false.
 	 */
 	public static function enqueue_scripts( $default_scripts = false ) {
