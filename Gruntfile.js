@@ -411,7 +411,6 @@ module.exports = function(grunt) {
 					'!wp-includes/js/hoverIntent.js',
 					'!wp-includes/js/json2.js',
 					'!wp-includes/js/tw-sack.js',
-					'!wp-includes/js/twemoji.js',
 					'!**/*.min.js'
 				],
 				// Remove once other JSHint errors are resolved
@@ -634,19 +633,6 @@ module.exports = function(grunt) {
 					`${BUILD_DIR}wp-includes/js/tinymce/plugins/*/plugin.min.js`
 				],
 				dest: `${BUILD_DIR}wp-includes/js/tinymce/wp-tinymce.js`
-			},
-			emoji: {
-				options: {
-					separator: '\n',
-					process(src, filepath) {
-						return `// Source: ${filepath.replace( BUILD_DIR, '' )}\n${src}`;
-					}
-				},
-				src: [
-					`${BUILD_DIR}wp-includes/js/twemoji.min.js`,
-					`${BUILD_DIR}wp-includes/js/wp-emoji.min.js`
-				],
-				dest: `${BUILD_DIR}wp-includes/js/wp-emoji-release.min.js`
 			}
 		},
 		compress: {
@@ -683,34 +669,6 @@ module.exports = function(grunt) {
 					'wp-includes/js/tinymce/skins/wordpress/images/*.{png,jpg,gif,jpeg}'
 				],
 				dest: SOURCE_DIR
-			}
-		},
-		includes: {
-			emoji: {
-				src: `${BUILD_DIR}wp-includes/formatting.php`,
-				dest: '.'
-			}
-		},
-		replace: {
-			emojiRegex: {
-				options: {
-					patterns: [
-						{
-							match: /\/\/ START: emoji arrays[\S\s]*\/\/ END: emoji arrays/g,
-							replacement: buildTools.replaceEmojiRegex,
-						}
-					]
-				},
-				files: [
-					{
-						expand: true,
-						flatten: true,
-						src: [
-							`${SOURCE_DIR}wp-includes/formatting.php`
-						],
-						dest: `${SOURCE_DIR}wp-includes/`
-					}
-				]
 			}
 		}
 	});
@@ -763,15 +721,10 @@ module.exports = function(grunt) {
 		'phpunit:wp-api-client-fixtures'
 	] );
 
-    grunt.registerTask( 'precommit:emoji', [
-		'replace:emojiRegex'
-	] );
-
     grunt.registerTask( 'precommit', [
 		'precommit:js',
 		'precommit:css',
 		'precommit:image',
-		'precommit:emoji',
 		'precommit:php',
 		'precommit:git-conflicts'
 	] );
@@ -935,8 +888,6 @@ module.exports = function(grunt) {
 		'concat:tinymce',
 		'compress:tinymce',
 		'clean:tinymce',
-		'concat:emoji',
-		'includes:emoji',
 		'includes:embed',
 		'usebanner',
 		'jsvalidate:build'
