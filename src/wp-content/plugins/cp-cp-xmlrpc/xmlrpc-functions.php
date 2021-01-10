@@ -73,3 +73,13 @@ function xmlrpc_pingback_error( $ixr_error ) {
 		return $ixr_error;
 	return new IXR_Error( 0, '' );
 }
+
+/**
+ * Display the link to the Really Simple Discovery service endpoint.
+ *
+ * @link http://archipelago.phrasewise.com/rsd
+ * @since WP-2.0.0
+ */
+function rsd_link() {
+	echo '<link rel="EditURI" type="application/rsd+xml" title="RSD" href="' . esc_url( site_url( 'xmlrpc.php?rsd', 'rpc' ) ) . '" />' . "\n";
+}

@@ -2759,16 +2759,6 @@ function feed_links_extra( $args = array() ) {
 }
 
 /**
- * Display the link to the Really Simple Discovery service endpoint.
- *
- * @link http://archipelago.phrasewise.com/rsd
- * @since WP-2.0.0
- */
-function rsd_link() {
-	echo '<link rel="EditURI" type="application/rsd+xml" title="RSD" href="' . esc_url( site_url( 'xmlrpc.php?rsd', 'rpc' ) ) . '" />' . "\n";
-}
-
-/**
  * Display the link to the Windows Live Writer manifest file.
  *
  * @link https://msdn.microsoft.com/en-us/library/bb463265.aspx

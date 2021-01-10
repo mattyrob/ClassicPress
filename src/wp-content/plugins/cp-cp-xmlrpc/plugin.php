@@ -14,3 +14,4 @@ require XMLRPCPATH . 'xmlrpc-functions.php';
 
 add_action( 'xmlrpc', 'cp_cp_xmlrpc');
 add_filter( 'xmlrpc_pingback_error', 'xmlrpc_pingback_error' );
+add_action( 'wp_head', 'rsd_link' );
