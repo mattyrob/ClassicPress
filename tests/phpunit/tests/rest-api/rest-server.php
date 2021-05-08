@@ -63,13 +63,12 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	public function test_default_param() {
 
 		register_rest_route( 'test-ns', '/test', array(
-			'methods' => array( 'GET' ),
+			'methods'  => array( 'GET' ),
 			'callback' => '__return_null',
 			'permission_callback' => '__return_true',
-			'args' => array(
-				'foo' => array(
-					'default' => 'bar',
-
+			'args'     => array(
+				'foo'  => array(
+					'default'  => 'bar',
 				),
 			),
 		) );
@@ -83,12 +82,12 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	public function test_default_param_is_overridden() {
 
 		register_rest_route( 'test-ns', '/test', array(
-			'methods' => array( 'GET' ),
+			'methods'  => array( 'GET' ),
 			'callback' => '__return_null',
 			'permission_callback' => '__return_true',
-			'args' => array(
-				'foo' => array(
-					'default' => 'bar',
+			'args'     => array(
+				'foo'  => array(
+					'default'  => 'bar',
 				),
 			),
 		) );
@@ -101,7 +100,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	}
 
 	public function test_optional_param() {
-
 		register_rest_route( 'optional', '/test', array(
 			'methods'  => array( 'GET' ),
 			'callback' => '__return_null',
@@ -120,7 +118,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	}
 
 	public function test_no_zero_param() {
-
 		register_rest_route( 'no-zero', '/test', array(
 			'methods'  => array( 'GET' ),
 			'callback' => '__return_null',
@@ -137,7 +134,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	}
 
 	public function test_head_request_handled_by_get() {
-
 		register_rest_route( 'head-request', '/test', array(
 			'methods'  => array( 'GET' ),
 			'callback' => '__return_true',
@@ -145,7 +141,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 		) );
 		$request = new WP_REST_Request( 'HEAD', '/head-request/test' );
 		$response = $this->server->dispatch( $request );
-
 		$this->assertEquals( 200, $response->get_status() );
 	}
 
@@ -170,7 +165,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 		));
 		$request = new WP_REST_Request( 'HEAD', '/head-request/test' );
 		$response = $this->server->dispatch( $request );
-
 		$this->assertEquals( 200, $response->get_status() );
 	}
 
@@ -1005,7 +999,6 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 	 * @see https://core.trac.wordpress.org/ticket/37192
 	 */
 	public function test_rest_validate_before_sanitization() {
-
 		register_rest_route( 'test-ns', '/test', array(
 			'methods'  => array( 'GET' ),
 			'callback' => '__return_null',
@@ -1027,5 +1020,64 @@ class Tests_REST_Server extends WP_Test_REST_TestCase {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 200, $response->get_status() );
+	}
+
+	public function _validate_as_integer_123( $value, $request, $key ) {
+		if ( ! is_int( $value ) ) {
+			return new WP_Error( 'some-error', 'This is not valid!' );
+		}
+
+		return true;
+	}
+
+	public function _validate_as_string_foo( $value, $request, $key ) {
+		if ( ! is_string( $value ) ) {
+			return new WP_Error( 'some-error', 'This is not valid!' );
+		}
+
+		return true;
+	}
+
+	/**
+	 * @return array {
+	 *     @type array {
+	 *         @type bool $has_logged_in_user Are we registering a user for the test.
+	 *         @type bool $has_nonce          Is the nonce passed.
+	 *     }
+	 * }
+	 */
+	function data_rest_send_refreshed_nonce() {
+		return array(
+			array( true, true ),
+			array( true, false ),
+			array( false, true ),
+			array( false, false ),
+		);
+	}
+
+	/**
+	 * Helper to setup a users and auth cookie global for the
+	 * rest_send_refreshed_nonce related tests.
+	 */
+	protected function helper_setup_user_for_rest_send_refreshed_nonce_tests() {
+		$author = self::factory()->user->create( array( 'role' => 'author' ) );
+		wp_set_current_user( $author );
+
+		global $wp_rest_auth_cookie;
+
+		$wp_rest_auth_cookie = true;
+	}
+
+	/**
+	 * Helper to make the request and get the headers for the
+	 * rest_send_refreshed_nonce related tests.
+	 *
+	 * @return array
+	 */
+	protected function helper_make_request_and_return_headers_for_rest_send_refreshed_nonce_tests() {
+		$request = new WP_REST_Request( 'GET', '/', array() );
+		$result  = $this->server->serve_request( '/' );
+
+		return $this->server->sent_headers;
 	}
 }
