@@ -77,7 +77,7 @@ function register_rest_route( $namespace, $route, $args = array(), $override = f
 					'<code>permission_callback</code>',
 					'<code>__return_true</code>'
 				),
-				'5.5.0'
+				'WP-5.5.0'
 			);
 		}
 	}
