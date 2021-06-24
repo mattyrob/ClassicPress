@@ -917,3 +917,97 @@ function _wp_filter_build_unique_id($tag, $function, $priority) {
 		return $function[0] . '::' . $function[1];
 	}
 }
+
+/*
+ * Hook an anonymous function or method to a specific action.
+ *
+ * @since CP-2.0
+ *
+ * @param string   $tag             The name of the action to which the $function_to_add is hooked.
+ * @param string   $hander          A unique handler name associated with the anonymous function callback.
+ * @param callable $function_to_add The name of the function you wish to be called.
+ * @param int      $priority        Optional. Used to specify the order in which the functions
+ *                                  associated with a particular action are executed. Default 10.
+ *                                  Lower numbers correspond with earlier execution,
+ *                                  and functions with the same priority are executed
+ *                                  in the order in which they were added to the action.
+ * @param int      $accepted_args   Optional. The number of arguments the function accepts. Default 1.
+ * @return true Will always return true.
+ */
+function add_anonymous_action( $tag, $handler, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+    global $hook_handlers;
+    $hook_handlers[ $handler ] = $function_to_add;
+    return add_filter( $tag, $function_to_add, $priority, $accepted_args );
+}
+
+/*
+ * Hook an anonymous function or method to a specific filter action.
+ *
+ * @since CP-2.0
+ *
+ * @param string   $tag             The name of the action to which the $function_to_add is hooked.
+ * @param string   $hander          A unique handler name associated with the anonymous function callback.
+ * @param callable $function_to_add The name of the function you wish to be called.
+ * @param int      $priority        Optional. Used to specify the order in which the functions
+ *                                  associated with a particular action are executed. Default 10.
+ *                                  Lower numbers correspond with earlier execution,
+ *                                  and functions with the same priority are executed
+ *                                  in the order in which they were added to the action.
+ * @param int      $accepted_args   Optional. The number of arguments the function accepts. Default 1.
+ * @return true Will always return true.
+ */
+function add_anonymous_filter( $tag, $handler, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+    global $hook_handlers;
+    $hook_handlers[ $handler ] = $function_to_add;
+    return add_filter( $tag, $function_to_add, $priority, $accepted_args );
+}
+
+/**
+ * Removes a function from a specified action hook.
+ *
+ * This function removes anonymous functions attached to a specified action hook.
+ *
+ * To remove a hook, the $handler and $priority arguments must match when
+ * the hook was added. This goes for both filters and actions. No warning
+ * will be given on removal failure.
+ *
+ * @since CP-2.0
+ *
+ * @global array $hook_handlers         Stores all of the anonymous actions
+ *
+ * @param string   $tag                The filter hook to which the function to be removed is hooked.
+ * @param string   $handler            The name of the handler which should be removed.
+ * @param int      $priority           Optional. The priority of the function. Default 10.
+ * @return bool    Whether the function existed before it was removed.
+ */
+function remove_anonymous_action( $tag, $handler, $priority = 10 ) {
+    global $hook_handlers;
+    $function_to_remove = $hook_handlers[ $handler ];
+    unset( $hook_handlers[ $handler ] );
+    return remove_filter( $tag, $function_to_remove, $priority );
+}
+
+/**
+ * Removes a function from a specified filter hook.
+ *
+ * This function removes a function attached to a specified filter hook.
+ *
+ * To remove a hook, the $handler and $priority arguments must match when
+ * the hook was added. This goes for both filters and actions. No warning
+ * will be given on removal failure.
+ *
+ * @since CP-2.0
+ *
+ * @global array $hook_handlers         Stores all of the anonymous actions
+ *
+ * @param string   $tag                The filter hook to which the function to be removed is hooked.
+ * @param string   $handler            The name of the handler which should be removed.
+ * @param int      $priority           Optional. The priority of the function. Default 10.
+ * @return bool    Whether the function existed before it was removed.
+ */
+function remove_anonymous_filter( $tag, $handler, $priority = 10 ) {
+    global $hook_handlers;
+    $function_to_remove = $hook_handlers[ $handler ];
+    unset( $hook_handlers[ $handler ] );
+    return remove_filter( $tag, $function_to_remove, $priority );
+}
